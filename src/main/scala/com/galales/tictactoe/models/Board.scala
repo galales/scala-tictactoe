@@ -22,4 +22,6 @@ case class Board() {
       row <- List.range(0, 2);
       col <- if(main) List.range(0, 2) else List.range(2, 0);
     ) yield board(row)(col)
+
+  def isComplete: Boolean = ???
 }
