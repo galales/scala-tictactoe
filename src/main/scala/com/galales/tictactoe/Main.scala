@@ -12,5 +12,5 @@ object Main extends App {
   val userInterface: UserInterfaceDrawer = ConsoleUI
   val board: Board = Board()
 
-  Game.play(board, ai, userInterface, userInteraction, true)
+  Game.play(board, ai, userInterface, userInteraction, isUserTurn = true)
 }
