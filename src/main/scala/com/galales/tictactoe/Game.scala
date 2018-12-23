@@ -12,10 +12,10 @@ object Game {
 
   def getGameResult(board: Board) : GameResult.Value = ???
 
-  def play(board: Board, ai: AI, userInterface: UserInterfaceDrawer, userInteract: UserInteractionHandler, playerTurn: Boolean) : GameResult.Value = {
+  def play(board: Board, ai: AI, userInterface: UserInterfaceDrawer, userInteract: UserInteractionHandler, isUserTurn: Boolean) : GameResult.Value = {
 
-    if(playerTurn) {
-      // Player Turn
+    if(isUserTurn) {
+      // User Turn
       board.execMove(userInteract.makeMove)
     } else {
       // AI Turn
@@ -25,7 +25,7 @@ object Game {
     if(isThisTheEnd(board)) {
       getGameResult(board)
     } else {
-      play(board, ai, userInterface, userInteract, !playerTurn)
+      play(board, ai, userInterface, userInteract, !isUserTurn)
     }
 
   }
