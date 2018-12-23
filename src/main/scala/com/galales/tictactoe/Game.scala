@@ -9,15 +9,14 @@ import com.galales.tictactoe.ui.UserInterfaceDrawer
 object Game {
 
   def getGameResult(board: Board) : GameResult.Value = {
-//    (0 to 2).map(board.getRow(_).flatten).filter(r => r.length == 3 && r.distinct.length == 1).head.head,
-//    (0 to 2).map(board.getColumn(_).flatten).filter(r => r.length == 3 && r.distinct.length == 1).head.head,
-//    List(true, false).map(board.getDiagonal(_).flatten).filter(r => r.length == 3 && r.distinct.length == 1).head.head,
-    // TODO Check .head.head for errors
-    val winner = List(
-      (0 to 2).map(board.getRow).filter(r => r.length == 3 && r.distinct.length == 1).head.head,
-      (0 to 2).map(board.getColumn).filter(r => r.length == 3 && r.distinct.length == 1).head.head,
-      List(true, false).map(board.getDiagonal).filter(r => r.length == 3 && r.distinct.length == 1).head.head,
-    ).flatten.head
+
+    val singleValueInCombinations = List(
+      (0 to 2).map(board.getRow).filter(_.distinct.length == 1),
+      (0 to 2).map(board.getColumn).filter(_.distinct.length == 1),
+      List(true, false).map(board.getDiagonal).filter(_.distinct.length == 1),
+    ).flatten.flatMap(_.head)
+
+    val winner = if(singleValueInCombinations.nonEmpty) singleValueInCombinations.head else None
 
     winner match {
       case Player.user => GameResult.userWin
