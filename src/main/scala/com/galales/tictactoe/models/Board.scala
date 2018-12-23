@@ -4,22 +4,22 @@ import scala.collection.mutable.ArrayBuffer
 
 case class Board() {
 
-  private val board = ArrayBuffer.fill[BoardCellValue.Value](3,3)(BoardCellValue.empty)
+  private val board = ArrayBuffer.fill[Option[Player.Value]](3,3)(None)
 
-  def execMove(move: Move, player: BoardCellValue.Value): Either[BadMove, GoodMove] = {
-    if(player == BoardCellValue.empty || board(move.row)(move.column) != BoardCellValue.empty) {
+  def execMove(move: Move, player: Player.Value): Either[BadMove, GoodMove] = {
+    if(board(move.row)(move.column).isDefined) {
       Left(BadMove())
     } else {
-      board(move.row)(move.column) = player
+      board(move.row)(move.column) = Some(player)
       Right(GoodMove())
     }
   }
 
-  def getRow(row: Int) : List[BoardCellValue.Value] = board(row).toList
-  def getColumn(column: Int) : List[BoardCellValue.Value] = board.map{_(column - 1)}.toList
-  def getDiagonal(main: Boolean) : List[BoardCellValue.Value] =
+  def getRow(row: Int) : List[Option[Player.Value]] = board(row).toList
+  def getColumn(column: Int) : List[Option[Player.Value]] = board.map{_(column - 1)}.toList
+  def getDiagonal(main: Boolean) : List[Option[Player.Value]] =
     for(
-      i <- if(main) 0 to 2 else 2 to 0;
-      row <- board(i).asInstanceOf[BoardCellValue.Value]
-    ) yield row(i)
+      row <- List.range(0, 2);
+      col <- if(main) List.range(0, 2) else List.range(2, 0);
+    ) yield board(row)(col)
 }

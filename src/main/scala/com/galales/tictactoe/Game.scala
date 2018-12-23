@@ -1,7 +1,7 @@
 package com.galales.tictactoe
 
 import com.galales.tictactoe.ai.AI
-import com.galales.tictactoe.models.Board
+import com.galales.tictactoe.models.{Board, Player}
 import com.galales.tictactoe.enums.GameResult
 import com.galales.tictactoe.interaction.UserInteractionHandler
 import com.galales.tictactoe.ui.UserInterfaceDrawer
@@ -16,10 +16,10 @@ object Game {
 
     if(isUserTurn) {
       // User Turn
-      board.execMove(userInteract.makeMove)
+      board.execMove(userInteract.makeMove, Player.user)
     } else {
       // AI Turn
-      board.execMove(ai.makeMove(board))
+      board.execMove(ai.makeMove(board), Player.ai)
     }
 
     if(isThisTheEnd(board)) {
