@@ -1,5 +1,7 @@
 package com.galales.tictactoe.interaction
 
-object ConsoleInteraction extends UserInteractionHandler {
+import com.galales.tictactoe.models.Move
 
+object ConsoleInteraction extends UserInteractionHandler {
+  override def makeMove: Move = ???
 }

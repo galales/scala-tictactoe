@@ -1,5 +1,7 @@
 package com.galales.tictactoe.interaction
 
-trait UserInteractionHandler {
+import com.galales.tictactoe.models.Move
 
+trait UserInteractionHandler {
+  def makeMove: Move
 }
