@@ -17,12 +17,9 @@ case class Board() {
 
   def apply(row: Int)(column: Int): Option[Player.Value] = board(row)(column)
   def getRow(row: Int) : List[Option[Player.Value]] = board(row).toList
-  def getColumn(column: Int) : List[Option[Player.Value]] = board.map{_(column - 1)}.toList
+  def getColumn(column: Int) : List[Option[Player.Value]] = board.map{_(column)}.toList
   def getDiagonal(main: Boolean) : List[Option[Player.Value]] =
-    for(
-      row <- List.range(0, 2);
-      col <- if(main) List.range(0, 2) else List.range(2, 0);
-    ) yield board(row)(col)
+    List.range(0, 3).map(i => board(i)(if(main) i else 2 - i))
 
   def isComplete: Boolean = !board.flatMap(_.toList).toList.exists(_.isEmpty)
 }
