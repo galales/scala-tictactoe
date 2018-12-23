@@ -1,5 +1,3 @@
 package com.galales.tictactoe.models
 
-class Move {
-
-}
+case class Move(row: Int, column: Int)
