@@ -30,6 +30,7 @@ object Game {
 
     if(isUserTurn) {
       // User Turn
+      userInterface.printBoard(board)
       board.execMove(userInteract.makeMove, Player.user)
     } else {
       // AI Turn
