@@ -15,6 +15,7 @@ case class Board() {
     }
   }
 
+  def apply(row: Int)(column: Int): Option[Player.Value] = board(row)(column)
   def getRow(row: Int) : List[Option[Player.Value]] = board(row).toList
   def getColumn(column: Int) : List[Option[Player.Value]] = board.map{_(column - 1)}.toList
   def getDiagonal(main: Boolean) : List[Option[Player.Value]] =
