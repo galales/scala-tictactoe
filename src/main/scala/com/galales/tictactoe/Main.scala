@@ -1,16 +1,16 @@
 package com.galales.tictactoe
 
-import com.galales.tictactoe.ai.{AI, MonkeyAI}
-import com.galales.tictactoe.interaction.{ConsoleInteraction, UserInteractionHandler}
 import com.galales.tictactoe.models.Board
-import com.galales.tictactoe.ui.{ConsoleUI, UserInterfaceDrawer}
+import com.galales.tictactoe.services.ai.{AI, MonkeyAI}
+import com.galales.tictactoe.services.interaction.{ConsoleInteraction, InteractionService}
+import com.galales.tictactoe.services.ui.{ConsoleUI, UserInterfaceService}
 
 object Main extends App {
 
   val ai: AI = MonkeyAI
-  val userInteraction: UserInteractionHandler = ConsoleInteraction
-  val userInterface: UserInterfaceDrawer = ConsoleUI
+  val interaction: InteractionService = ConsoleInteraction
+  val userInterface: UserInterfaceService = ConsoleUI
   val board: Board = Board()
 
-  userInterface.printResult(Game.play(board, ai, userInterface, userInteraction, isUserTurn = true))
+  userInterface.printResult(Game.play(board, ai, userInterface, interaction, isUserTurn = true))
 }

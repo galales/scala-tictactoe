@@ -1,9 +1,9 @@
-package com.galales.tictactoe.ui
+package com.galales.tictactoe.services.ui
 
 import com.galales.tictactoe.enums.GameResult
 import com.galales.tictactoe.models.Board
 
-trait UserInterfaceDrawer {
+trait UserInterfaceService {
 
   def printBoard(board: Board)
 

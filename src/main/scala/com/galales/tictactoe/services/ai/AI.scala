@@ -1,4 +1,4 @@
-package com.galales.tictactoe.ai
+package com.galales.tictactoe.services.ai
 
 import com.galales.tictactoe.models.{Board, Move}
 
