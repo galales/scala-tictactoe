@@ -7,5 +7,5 @@ trait UserInterfaceService {
 
   def printBoard(board: Board)
 
-  def printResult(result: GameResult.Value): Unit = println(s"Result: $result")
+  def printResult(result: GameResult.Value)
 }
