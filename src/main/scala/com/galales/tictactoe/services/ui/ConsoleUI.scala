@@ -22,6 +22,8 @@ object ConsoleUI extends UserInterfaceService {
 
   override def showResult(result: GameResult.Value): Unit = println(s"Result: $result")
 
+  override def outputMessage(message: String): Unit = print(message)
+
 
   private def playerToPlaceCard(player: Option[Player.Value]) : String = {
     player match {
@@ -46,4 +48,5 @@ object ConsoleUI extends UserInterfaceService {
       ""
     }
   }
+
 }

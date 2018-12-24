@@ -8,4 +8,6 @@ trait UserInterfaceService {
   def updateBoard(board: Board)
 
   def showResult(result: GameResult.Value)
+
+  def outputMessage(message: String)
 }

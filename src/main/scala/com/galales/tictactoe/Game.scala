@@ -25,7 +25,7 @@ object Game {
     }
   }
 
-  def play(board: Board, ai: AIService, userInterface: UserInterfaceService, userInteract: InteractionService, isUserTurn: Boolean) : GameResult.Value = {
+  def play(board: Board, isUserTurn: Boolean)(implicit ai: AIService, userInterface: UserInterfaceService, userInteract: InteractionService) : GameResult.Value = {
 
     if(isUserTurn) {
       // User Turn
@@ -41,7 +41,7 @@ object Game {
     if(result != GameResult.stillGoing) {
       result
     } else {
-      play(board, ai, userInterface, userInteract, !isUserTurn)
+      play(board, !isUserTurn)
     }
 
   }

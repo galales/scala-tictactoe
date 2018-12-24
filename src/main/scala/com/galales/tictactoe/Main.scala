@@ -7,10 +7,11 @@ import com.galales.tictactoe.services.ui.{ConsoleUI, UserInterfaceService}
 
 object Main extends App {
 
-  val ai: AIService = MonkeyAI
-  val interaction: InteractionService = ConsoleInteraction
-  val userInterface: UserInterfaceService = ConsoleUI
+  implicit val ai: AIService = MonkeyAI
+  implicit val userInterface: UserInterfaceService = ConsoleUI
+  implicit val interaction: InteractionService = ConsoleInteraction
+
   val board: Board = Board()
 
-  userInterface.showResult(Game.play(board, ai, userInterface, interaction, isUserTurn = true))
+  userInterface.showResult(Game.play(board, isUserTurn = true))
 }
