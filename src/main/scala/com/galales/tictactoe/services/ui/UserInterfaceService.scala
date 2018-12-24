@@ -5,7 +5,7 @@ import com.galales.tictactoe.models.Board
 
 trait UserInterfaceService {
 
-  def printBoard(board: Board)
+  def updateBoard(board: Board)
 
-  def printResult(result: GameResult.Value)
+  def showResult(result: GameResult.Value)
 }

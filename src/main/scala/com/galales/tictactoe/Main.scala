@@ -12,5 +12,5 @@ object Main extends App {
   val userInterface: UserInterfaceService = ConsoleUI
   val board: Board = Board()
 
-  userInterface.printResult(Game.play(board, ai, userInterface, interaction, isUserTurn = true))
+  userInterface.showResult(Game.play(board, ai, userInterface, interaction, isUserTurn = true))
 }

@@ -4,7 +4,7 @@ import com.galales.tictactoe.enums.GameResult
 import com.galales.tictactoe.models.{Board, Player}
 
 object ConsoleUI extends UserInterfaceService {
-  override def printBoard(board: Board): Unit = {
+  override def updateBoard(board: Board): Unit = {
     (0 to 2).foreach(i =>
       {
         println(
@@ -19,9 +19,9 @@ object ConsoleUI extends UserInterfaceService {
     )
   }
 
-  override def printResult(result: GameResult.Value): Unit = println(s"Result: $result")
+  override def showResult(result: GameResult.Value): Unit = println(s"Result: $result")
 
-  
+
   private def playerToPlaceCard(player: Option[Player.Value]) : String = {
     player match {
       case Some(v) => v match {
