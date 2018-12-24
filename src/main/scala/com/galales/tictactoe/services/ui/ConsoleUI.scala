@@ -9,8 +9,9 @@ object ConsoleUI extends UserInterfaceService {
       {
         println(
           board.getRow(i).
-            fold(""){
-              (total, current) => total + createVerticalLine(total.asInstanceOf[String]) + playerToPlaceCard(current.asInstanceOf[Option[Player.Value]])
+            foldLeft(""){
+              (total, current) =>
+                total + createVerticalLine(total) + playerToPlaceCard(current)
             }
         )
         printHorizontalLine(i)
