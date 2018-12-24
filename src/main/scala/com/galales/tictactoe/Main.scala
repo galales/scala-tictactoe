@@ -1,17 +1,30 @@
 package com.galales.tictactoe
 
+import com.galales.tictactoe.enums.{AIType, InteractionType, UserInterfaceType}
 import com.galales.tictactoe.models.Board
-import com.galales.tictactoe.services.ai.{AIService, MonkeyAI}
-import com.galales.tictactoe.services.interaction.{ConsoleInteraction, InteractionService}
-import com.galales.tictactoe.services.ui.{ConsoleUI, UserInterfaceService}
+import com.galales.tictactoe.services.ai._
+import com.galales.tictactoe.services.interaction._
+import com.galales.tictactoe.services.ui._
 
 object Main extends App {
 
-  implicit val ai: AIService = MonkeyAI
-  implicit val userInterface: UserInterfaceService = ConsoleUI
-  implicit val interaction: InteractionService = ConsoleInteraction
-
   val board: Board = Board()
+
+  val parameters = ParametersParser(args).getOrElse(ParametersParser())
+
+  implicit val ai: AIService = parameters.ai match {
+    case AIType.monkey => MonkeyAI
+    case AIType.simple => SimpleAI
+  }
+
+  implicit val userInterface: UserInterfaceService = parameters.userInterface match {
+    case UserInterfaceType.console => ConsoleUI
+  }
+
+  implicit val interaction: InteractionService = parameters.userInteraction match {
+    case InteractionType.console => ConsoleInteraction
+  }
+
 
   userInterface.showResult(Game.play(board, isUserTurn = true))
 }

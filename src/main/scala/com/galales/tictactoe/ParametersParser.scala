@@ -2,7 +2,7 @@ package com.galales.tictactoe
 
 import com.galales.tictactoe.enums.{AIType, InteractionType, UserInterfaceType}
 
-final case class ParametersParser(userInterface: Option[UserInterfaceType.Value] = Some(UserInterfaceType.console), userInteraction: Option[InteractionType.Value] = Some(InteractionType.console), ai: Option[AIType.Value] = Some(AIType.monkey))
+final case class ParametersParser(userInterface: UserInterfaceType.Value = UserInterfaceType.console, userInteraction: InteractionType.Value = InteractionType.console, ai: AIType.Value = AIType.monkey)
 
 object ParametersParser {
 
@@ -21,15 +21,18 @@ object ParametersParser {
 
       opt[UserInterfaceType.Value]('i', "userInterface").
         optional().
-        action((i, p) => p.copy(userInterface = Some(i)))
+        action((i, p) => p.copy(userInterface = i))
+        .text(s"Allowed values: ${UserInterfaceType.values.mkString(",")}")
 
       opt[InteractionType.Value]('t', "userInteraction").
         optional().
-        action((t, p) => p.copy(userInteraction = Some(t)))
+        action((t, p) => p.copy(userInteraction = t))
+        .text(s"Allowed values: ${InteractionType.values.mkString(",")}")
 
       opt[AIType.Value]('a', "ai").
         optional().
-        action((a, p) => p.copy(ai = Some(a)))
+        action((a, p) => p.copy(ai = a))
+        .text(s"Allowed values: ${AIType.values.mkString(",")}")
 
     }
 
