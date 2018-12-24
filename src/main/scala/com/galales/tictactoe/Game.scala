@@ -3,7 +3,7 @@ package com.galales.tictactoe
 import com.galales.tictactoe.models.{Board, Player}
 import com.galales.tictactoe.enums.GameResult
 import com.galales.tictactoe.services.interaction.InteractionService
-import com.galales.tictactoe.services.ai.AI
+import com.galales.tictactoe.services.ai.AIService
 import com.galales.tictactoe.services.ui.UserInterfaceService
 
 object Game {
@@ -25,7 +25,7 @@ object Game {
     }
   }
 
-  def play(board: Board, ai: AI, userInterface: UserInterfaceService, userInteract: InteractionService, isUserTurn: Boolean) : GameResult.Value = {
+  def play(board: Board, ai: AIService, userInterface: UserInterfaceService, userInteract: InteractionService, isUserTurn: Boolean) : GameResult.Value = {
 
     if(isUserTurn) {
       // User Turn

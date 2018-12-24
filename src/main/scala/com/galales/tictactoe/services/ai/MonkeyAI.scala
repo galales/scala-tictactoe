@@ -2,7 +2,7 @@ package com.galales.tictactoe.services.ai
 
 import com.galales.tictactoe.models.{Board, Move}
 
-object MonkeyAI extends AI {
+object MonkeyAI extends AIService {
 
   private val random = scala.util.Random
 
