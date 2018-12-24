@@ -30,7 +30,12 @@ object Game {
     if(isUserTurn) {
       // User Turn
       userInterface.updateBoard(board)
-      board.execMove(userInteract.makeMove, Player.user)
+      board.execMove(userInteract.makeMove, Player.user) match {
+        case Left(_) =>
+          userInterface.outputMessage("Move not allowed, please retry\n")
+          play(board, isUserTurn)
+        case Right(_) =>
+      }
     } else {
       // AI Turn
       board.execMove(ai.makeMove(board), Player.ai)
