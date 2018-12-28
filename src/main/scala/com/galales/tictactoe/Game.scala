@@ -16,7 +16,7 @@ object Game {
       List(true, false).map(board.getDiagonal).filter(_.distinct.length == 1),
     ).flatten.flatMap(_.head)
 
-    val winner = if(singleValueInCombinations.nonEmpty) singleValueInCombinations.head else None
+    val winner = singleValueInCombinations.headOption.getOrElse(None)
 
     winner match {
       case Player.user => GameResult.userWin
@@ -42,12 +42,9 @@ object Game {
       board.execMove(ai.makeMove(board), Player.ai)
     }
 
-    val result = getGameResult(board)
-
-    if(result != GameResult.stillGoing) {
-      result
-    } else {
-      play(board, !isUserTurn)
+    getGameResult(board) match {
+      case GameResult.stillGoing => play(board, !isUserTurn)
+      case r => r
     }
 
   }
