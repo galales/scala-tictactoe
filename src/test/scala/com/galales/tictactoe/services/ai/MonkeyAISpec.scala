@@ -9,10 +9,10 @@ class MonkeyAISpec extends UnitSpec {
     val board = Board()
     val move = MonkeyAI.makeMove(board)
 
-    move.row should be > 0
+    move.row should be >= 0
     move.row should be < 3
 
-    move.column should be > 0
+    move.column should be >= 0
     move.column should be < 3
   }
 
