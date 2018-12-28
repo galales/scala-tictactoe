@@ -15,6 +15,7 @@ object Main extends App {
   implicit val ai: AIService = parameters.ai match {
     case AIType.monkey => MonkeyAI
     case AIType.simple => SimpleAI
+    case AIType.challenge => ChallengeAI
   }
 
   implicit val userInterface: UserInterfaceService = parameters.userInterface match {
