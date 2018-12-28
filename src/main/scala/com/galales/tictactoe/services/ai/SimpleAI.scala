@@ -9,7 +9,7 @@ object SimpleAI extends AIService {
   // If there's no hope to win, just make some random move
 
   override def makeMove(board: Board) : Move = {
-    val moves = (2 to 0 by -1).flatMap(getAvailableCombinations(board, _)).map(c => Move(c._1, c._2))
+    val moves = (2 to 0 by -1).flatMap(getPotentiallyWinningCoordinates(board, _)).map(c => Move(c._1, c._2))
 
     if(moves.isEmpty) {
       MonkeyAI.makeMove(board)
@@ -19,23 +19,22 @@ object SimpleAI extends AIService {
 
   }
 
-  private def getAvailableCombinations(board: Board, aiMarks: Int): List[(Int, Int)] = {
-    val rowsCombinations = for(
-      row <- List.range(0, 3)
-      if board.getRow(row).count(_.contains(Player.ai)) == aiMarks && board.getRow(row).count(_.isEmpty) == 3 - aiMarks
-    ) yield for(column <- List.range(0, 3) if board(row)(column).isEmpty) yield(row, column)
+  private def getPotentiallyWinningCoordinates(board: Board, aiMarksCount: Int): List[(Int, Int)] = {
 
-    val columnsCombinations = for(
-      column <- List.range(0, 3)
-      if board.getColumn(column).count(_.contains(Player.ai)) == aiMarks && board.getColumn(column).count(_.isEmpty) == 3 - aiMarks
-    ) yield for(row <- List.range(0, 3) if board(row)(column).isEmpty) yield(row, column)
+    val rowsCombinations = searchWinningCoordinates(List.range(0, 3), board.getRow, aiMarksCount)
+    val columnsCombinations = searchWinningCoordinates(List.range(0, 3), board.getColumn, aiMarksCount).map(t => (t._2, t._1))
+    val diagonalsCombinations = searchWinningCoordinates(List(true, false), board.getDiagonal, aiMarksCount).map(t => (t._2, if(t._1) t._2 else 2 - t._2))
 
-    val diagonalsCombinations = for(
-      isMainDiagonal <- List(true, false)
-      if board.getDiagonal(isMainDiagonal).count(_.contains(Player.ai)) == aiMarks && board.getDiagonal(isMainDiagonal).count(_.isEmpty) == 3 - aiMarks
-    ) yield for(row <- List.range(0, 3) if (isMainDiagonal && board(row)(row).isEmpty) || (!isMainDiagonal && board(row)(2 - row).isEmpty)) yield(row, if(isMainDiagonal) row else 2 - row)
+    rowsCombinations ::: columnsCombinations ::: diagonalsCombinations
+  }
 
-    (rowsCombinations ::: columnsCombinations ::: diagonalsCombinations).flatten
+  private def searchWinningCoordinates[T](range: List[T], extractor: T => List[Option[Player.Value]], aiMarksCount: Int): List[(T, Int)] = {
+    val winningCoordinates = for(
+      r <- range
+      if extractor(r).count(_.contains(Player.ai)) == aiMarksCount && extractor(r).count(_.isEmpty) == 3 - aiMarksCount
+    ) yield for(r2 <- List.range(0, 3) if extractor(r)(r2).isEmpty) yield(r, r2)
+
+    winningCoordinates.flatten
   }
 
 }
