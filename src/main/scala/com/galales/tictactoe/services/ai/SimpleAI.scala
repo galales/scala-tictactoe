@@ -9,7 +9,7 @@ object SimpleAI extends AIService {
   // If there's no hope to win, just make some random move
 
   override def makeMove(board: Board) : Move = {
-    val moves = (2 to 0 by -1).flatMap(getPotentiallyWinningCoordinates(board, _, Player.ai)).map(c => Move(c._1, c._2))
+    val moves = (board.size - 1 to 0 by -1).flatMap(getPotentiallyWinningCoordinates(board, _, Player.ai)).map(c => Move(c._1, c._2))
 
     if(moves.isEmpty) {
       MonkeyAI.makeMove(board)
@@ -21,9 +21,9 @@ object SimpleAI extends AIService {
 
   private[ai] def getPotentiallyWinningCoordinates(board: Board, playerMarksCount: Int, player: Player.Value): List[(Int, Int)] = {
 
-    val rowsCombinations = searchWinningCoordinates(List.range(0, 3), board.getRow, playerMarksCount, player)
-    val columnsCombinations = searchWinningCoordinates(List.range(0, 3), board.getColumn, playerMarksCount, player).map(t => (t._2, t._1))
-    val diagonalsCombinations = searchWinningCoordinates(List(true, false), board.getDiagonal, playerMarksCount, player).map(t => (t._2, if(t._1) t._2 else 2 - t._2))
+    val rowsCombinations = searchWinningCoordinates(List.range(0, board.size), board.getRow, playerMarksCount, player, board.size)
+    val columnsCombinations = searchWinningCoordinates(List.range(0, board.size), board.getColumn, playerMarksCount, player, board.size).map(t => (t._2, t._1))
+    val diagonalsCombinations = searchWinningCoordinates(List(true, false), board.getDiagonal, playerMarksCount, player, board.size).map(t => (t._2, if(t._1) t._2 else board.size - 1 - t._2))
 
     rowsCombinations ::: columnsCombinations ::: diagonalsCombinations
   }
@@ -38,11 +38,11 @@ object SimpleAI extends AIService {
     * @tparam T Type of range elements
     * @return The list of possible moves
     */
-  private def searchWinningCoordinates[T](range: List[T], extractor: T => List[Option[Player.Value]], playerMarksCount: Int, player: Player.Value): List[(T, Int)] = {
+  private def searchWinningCoordinates[T](range: List[T], extractor: T => List[Option[Player.Value]], playerMarksCount: Int, player: Player.Value, boardSize: Int): List[(T, Int)] = {
     val winningCoordinates = for(
       r <- range
-      if extractor(r).count(_.contains(player)) == playerMarksCount && extractor(r).count(_.isEmpty) == 3 - playerMarksCount
-    ) yield for(r2 <- List.range(0, 3) if extractor(r)(r2).isEmpty) yield(r, r2)
+      if extractor(r).count(_.contains(player)) == playerMarksCount && extractor(r).count(_.isEmpty) == boardSize - playerMarksCount
+    ) yield for(r2 <- List.range(0, boardSize) if extractor(r)(r2).isEmpty) yield(r, r2)
 
     winningCoordinates.flatten
   }

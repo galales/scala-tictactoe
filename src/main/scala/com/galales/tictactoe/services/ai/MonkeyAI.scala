@@ -9,8 +9,8 @@ object MonkeyAI extends AIService {
   // Set mark in a random spot
   override def makeMove(board: Board) : Move = {
     val emptyBoxes = for(
-      row <- 0 to 2;
-      column <- 0 to 2
+      row <- 0 until board.size;
+      column <- 0 until board.size
       if board(row)(column).isEmpty
     ) yield (row, column)
 

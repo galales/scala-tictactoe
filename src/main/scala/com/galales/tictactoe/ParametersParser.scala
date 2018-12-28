@@ -2,7 +2,7 @@ package com.galales.tictactoe
 
 import com.galales.tictactoe.enums.{AIType, InteractionType, UserInterfaceType}
 
-final case class ParametersParser(userInterface: UserInterfaceType.Value = UserInterfaceType.console, userInteraction: InteractionType.Value = InteractionType.console, ai: AIType.Value = AIType.monkey)
+final case class ParametersParser(userInterface: UserInterfaceType.Value = UserInterfaceType.console, userInteraction: InteractionType.Value = InteractionType.console, ai: AIType.Value = AIType.monkey, boardSize: Int = 3)
 
 object ParametersParser {
 
@@ -18,6 +18,14 @@ object ParametersParser {
 
   def apply(args: Array[String]): Option[ParametersParser] = {
     val parser = new scopt.OptionParser[ParametersParser]("Tic Tac Toe") {
+
+      opt[Int]('s', "boardSize").
+        optional().
+        action((s, p) => p.copy(boardSize = s))
+        .validate(s =>
+          if (s > 2) success
+          else failure("Value <boardSize> must be > 2"))
+        .text(s"Integer greater than 2")
 
       opt[UserInterfaceType.Value]('i', "userInterface").
         optional().

@@ -8,9 +8,9 @@ import com.galales.tictactoe.services.ui._
 
 object Main extends App {
 
-  val board: Board = Board()
-
   val parameters = ParametersParser(args).getOrElse(ParametersParser())
+
+  val board: Board = Board(parameters.boardSize)
 
   implicit val ai: AIService = parameters.ai match {
     case AIType.monkey => MonkeyAI

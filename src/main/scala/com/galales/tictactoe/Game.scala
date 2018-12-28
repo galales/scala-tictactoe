@@ -11,8 +11,8 @@ object Game {
   def getGameResult(board: Board) : GameResult.Value = {
 
     val singleValueInCombinations = List(
-      (0 to 2).map(board.getRow).filter(_.distinct.length == 1),
-      (0 to 2).map(board.getColumn).filter(_.distinct.length == 1),
+      (0 until board.size).map(board.getRow).filter(_.distinct.length == 1),
+      (0 until board.size).map(board.getColumn).filter(_.distinct.length == 1),
       List(true, false).map(board.getDiagonal).filter(_.distinct.length == 1),
     ).flatten.flatMap(_.head)
 
@@ -31,7 +31,7 @@ object Game {
       // User Turn
       userInterface.updateBoard(board)
 
-      board.execMove(userInteract.makeMove, Player.user) match {
+      board.execMove(userInteract.makeMove(board.size), Player.user) match {
         case Left(_) =>
           userInterface.outputErrorMessage("Move not allowed, please retry\n")
           play(board, isUserTurn)

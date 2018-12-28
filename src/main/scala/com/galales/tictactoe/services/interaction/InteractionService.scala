@@ -4,5 +4,5 @@ import com.galales.tictactoe.models.Move
 import com.galales.tictactoe.services.ui.UserInterfaceService
 
 trait InteractionService {
-  def makeMove(implicit userInterface: UserInterfaceService): Move
+  def makeMove(boardSize: Int)(implicit userInterface: UserInterfaceService): Move
 }

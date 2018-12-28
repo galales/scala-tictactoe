@@ -9,7 +9,7 @@ object ConsoleUI extends UserInterfaceService {
 
   override def updateBoard(board: Board): Unit = {
     clearScreen()
-    (0 to 2).foreach(i =>
+    (0 until board.size).foreach(i =>
       {
         println(
           board.getRow(i).
@@ -18,9 +18,8 @@ object ConsoleUI extends UserInterfaceService {
                 total + createVerticalLine(total) + playerToPlaceCard(current)
             }
         )
-        printHorizontalLine(i)
+        printHorizontalLine(i, board.size)
       }
-
     )
   }
 
@@ -52,9 +51,9 @@ object ConsoleUI extends UserInterfaceService {
     }
   }
 
-  private def printHorizontalLine(currentRow: Int) : Unit = {
-    if(currentRow < 2) {
-      println("-----------")
+  private def printHorizontalLine(currentRow: Int, boardSize: Int) : Unit = {
+    if(currentRow < boardSize - 1) {
+      println("-" * (4 * boardSize - 0.5).toInt)
     }
   }
 
@@ -65,7 +64,6 @@ object ConsoleUI extends UserInterfaceService {
       ""
     }
   }
-
 
   private def clearScreen() {
     System.out.print("\033[H\033[2J")

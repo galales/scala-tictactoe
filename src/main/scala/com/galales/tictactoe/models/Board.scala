@@ -2,9 +2,9 @@ package com.galales.tictactoe.models
 
 import scala.collection.mutable.ArrayBuffer
 
-case class Board() {
+case class Board(size: Int = 3) {
 
-  private val board = ArrayBuffer.fill[Option[Player.Value]](3,3)(None)
+  private val board = ArrayBuffer.fill[Option[Player.Value]](size,size)(None)
 
   def execMove(move: Move, player: Player.Value): Either[BadMove, GoodMove] = {
     if(board(move.row)(move.column).isDefined) {
@@ -19,7 +19,7 @@ case class Board() {
   def getRow(row: Int) : List[Option[Player.Value]] = board(row).toList
   def getColumn(column: Int) : List[Option[Player.Value]] = board.map{_(column)}.toList
   def getDiagonal(main: Boolean) : List[Option[Player.Value]] =
-    List.range(0, 3).map(i => board(i)(if(main) i else 2 - i))
+    List.range(0, size).map(i => board(i)(if(main) i else size - 1 - i))
 
   def isComplete: Boolean = !board.flatMap(_.toList).toList.exists(_.isEmpty)
 }
