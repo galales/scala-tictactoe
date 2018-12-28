@@ -5,34 +5,37 @@ import com.galales.tictactoe.models.{Board, Move, Player}
 object SimpleAI extends AIService {
 
   // Just tries to put marks in the best place to win
-  // Steps:
-  // 1. Look for a combinations where AI has 2 marks and the third is empty
-  // 2. Look for a combinations where AI has 1 mark2 and the others are empty
-  // 3. Look for a combinations where AI has all 3 spots are empty
-  // 4. No hope to win, just make some random move
+  // It looks for the spot where it could win with less moves
+  // If there's no hope to win, just make some random move
 
   override def makeMove(board: Board) : Move = {
-    val moves = (2 to 0 by -1).flatMap(getAvailableCombinations(board, _)).map(c => Move(c.head._1, c.head._2))
+    val moves = (2 to 0 by -1).flatMap(getAvailableCombinations(board, _)).map(c => Move(c._1, c._2))
 
     if(moves.isEmpty) {
       MonkeyAI.makeMove(board)
     } else {
       moves(0)
     }
-//    getAvailableCombinations(board, 2) match {
-//      case Some(v) => Move(v.head._1, v.head._2)
-//      case None => getAvailableCombinations(board, 1) match {
-//        case Some(v) => Move(v.head._1, v.head._2)
-//        case None =>getAvailableCombinations(board, 0) match {
-//          case Some(v) => Move(v.head._1, v.head._2)
-//          case None => // No hope to win, just make some random move
-//            MonkeyAI.makeMove(board)
-//        }
-//      }
-//    }
 
   }
 
-  private def getAvailableCombinations(board: Board, aiMarks: Int): Option[List[(Int, Int)]] = ???
+  private def getAvailableCombinations(board: Board, aiMarks: Int): List[(Int, Int)] = {
+    val rowsCombinations = for(
+      row <- List.range(0, 3)
+      if board.getRow(row).count(_ == Some(Player.ai)) == aiMarks && board.getRow(row).count(_ == None) == 3 - aiMarks
+    ) yield for(column <- List.range(0, 3) if board(row)(column).isEmpty) yield(row, column)
+
+    val columnsCombinations = for(
+      column <- List.range(0, 3)
+      if board.getColumn(column).count(_ == Some(Player.ai)) == aiMarks && board.getColumn(column).count(_ == None) == 3 - aiMarks
+    ) yield for(row <- List.range(0, 3) if board(row)(column).isEmpty) yield(row, column)
+
+    val diagonalsCombinations = for(
+      isMainDiagonal <- List(true, false)
+      if board.getDiagonal(isMainDiagonal).count(_ == Some(Player.ai)) == aiMarks && board.getDiagonal(isMainDiagonal).count(_ == None) == 3 - aiMarks
+    ) yield for(row <- List.range(0, 3) if (isMainDiagonal && board(row)(row).isEmpty) || (!isMainDiagonal && board(row)(2 - row).isEmpty)) yield(row, if(isMainDiagonal) row else 2 - row)
+
+    (rowsCombinations ::: columnsCombinations ::: diagonalsCombinations).flatten
+  }
 
 }
