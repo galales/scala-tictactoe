@@ -19,7 +19,7 @@ object SimpleAI extends AIService {
 
   }
 
-  private def getPotentiallyWinningCoordinates(board: Board, playerMarksCount: Int, player: Player.Value): List[(Int, Int)] = {
+  private[ai] def getPotentiallyWinningCoordinates(board: Board, playerMarksCount: Int, player: Player.Value): List[(Int, Int)] = {
 
     val rowsCombinations = searchWinningCoordinates(List.range(0, 3), board.getRow, playerMarksCount, player)
     val columnsCombinations = searchWinningCoordinates(List.range(0, 3), board.getColumn, playerMarksCount, player).map(t => (t._2, t._1))
