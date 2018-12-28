@@ -10,4 +10,5 @@ trait UserInterfaceService {
   def showResult(result: GameResult.Value)
 
   def outputMessage(message: String)
+  def outputErrorMessage(message: String)
 }

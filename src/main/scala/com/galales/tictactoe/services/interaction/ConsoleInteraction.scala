@@ -23,11 +23,11 @@ object ConsoleInteraction extends InteractionService {
         if(i >= 1 && i <= 3 )
           i
         else {
-          userInterface.outputMessage("The value must be 1, 2 or 3\n")
+          userInterface.outputErrorMessage("The value must be 1, 2 or 3\n")
           requestInput(message)
         }
       case Failure(_) =>
-        userInterface.outputMessage("The input is not a number, please try again\n")
+        userInterface.outputErrorMessage("The input is not a number, please try again\n")
         requestInput(message)
     }
   }

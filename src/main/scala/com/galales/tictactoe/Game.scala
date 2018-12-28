@@ -33,7 +33,7 @@ object Game {
 
       board.execMove(userInteract.makeMove, Player.user) match {
         case Left(_) =>
-          userInterface.outputMessage("Move not allowed, please retry\n")
+          userInterface.outputErrorMessage("Move not allowed, please retry\n")
           play(board, isUserTurn)
         case Right(_) =>
       }
