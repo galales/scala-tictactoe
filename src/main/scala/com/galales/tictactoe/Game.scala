@@ -26,10 +26,11 @@ object Game {
   }
 
   def play(board: Board, isUserTurn: Boolean)(implicit ai: AIService, userInterface: UserInterfaceService, userInteract: InteractionService) : GameResult.Value = {
-    userInterface.updateBoard(board)
 
     if(isUserTurn) {
       // User Turn
+      userInterface.updateBoard(board)
+
       board.execMove(userInteract.makeMove, Player.user) match {
         case Left(_) =>
           userInterface.outputMessage("Move not allowed, please retry\n")
