@@ -24,7 +24,16 @@ object ConsoleUI extends UserInterfaceService {
     )
   }
 
-  override def showResult(result: GameResult.Value): Unit = println(s"Result: $result")
+  override def showResult(result: GameResult.Value): Unit = {
+    clearScreen()
+    val resultString =
+      result match {
+        case GameResult.draw => "Draw"
+        case GameResult.aiWin => "AI Wins"
+        case GameResult.userWin => "User Wins"
+      }
+    println(s"Result: $resultString")
+  }
 
   override def outputMessage(message: String): Unit = print(message)
 
@@ -32,7 +41,7 @@ object ConsoleUI extends UserInterfaceService {
     outputMessage(ANSI_RED + message + ANSI_RESET)
     scala.io.StdIn.readLine()
   }
-  
+
   private def playerToPlaceCard(player: Option[Player.Value]) : String = {
     player match {
       case Some(v) => v match {
