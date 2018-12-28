@@ -12,3 +12,6 @@ src_managed/
 project/boot/
 project/plugins/project/
 .idea
+
+# Output JAR
+out
