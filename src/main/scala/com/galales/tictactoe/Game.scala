@@ -44,7 +44,9 @@ object Game {
 
     getGameResult(board) match {
       case GameResult.stillGoing => play(board, !isUserTurn)
-      case r => r
+      case r =>
+        userInterface.updateBoard(board)
+        r
     }
 
   }
