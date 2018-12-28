@@ -28,6 +28,15 @@ object SimpleAI extends AIService {
     rowsCombinations ::: columnsCombinations ::: diagonalsCombinations
   }
 
+  /**
+    * Search available spots that could lead to a win.
+    * The row/columns/diagonal must already have the number of ai marks requested
+    * @param range Range required to extract coordinates
+    * @param extractor Function to extract row/column/diagonal coordinates
+    * @param aiMarksCount Number of AI marks that the row/column/diagonal must already have
+    * @tparam T Type of range elements
+    * @return The list of possible moves
+    */
   private def searchWinningCoordinates[T](range: List[T], extractor: T => List[Option[Player.Value]], aiMarksCount: Int): List[(T, Int)] = {
     val winningCoordinates = for(
       r <- range
