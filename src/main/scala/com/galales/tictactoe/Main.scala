@@ -25,7 +25,8 @@ object Main extends App {
         case InteractionType.console => ConsoleInteraction
       }
 
-      userInterface.showResult(Game.play(board, isUserTurn = true))
+      val isUserFirstRound = parameters.userFirstRound.getOrElse(math.random < 0.50)
+      userInterface.showResult(Game.play(board, isUserFirstRound ))
     case _ =>
   }
 

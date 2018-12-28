@@ -2,7 +2,7 @@ package com.galales.tictactoe
 
 import com.galales.tictactoe.enums.{AIType, InteractionType, UserInterfaceType}
 
-final case class ParametersParser(userInterface: UserInterfaceType.Value = UserInterfaceType.console, userInteraction: InteractionType.Value = InteractionType.console, ai: AIType.Value = AIType.monkey, boardSize: Int = 3)
+final case class ParametersParser(userInterface: UserInterfaceType.Value = UserInterfaceType.console, userInteraction: InteractionType.Value = InteractionType.console, ai: AIType.Value = AIType.monkey, boardSize: Int = 3, userFirstRound: Option[Boolean] = None)
 
 object ParametersParser {
 
@@ -41,6 +41,11 @@ object ParametersParser {
         optional().
         action((a, p) => p.copy(ai = a))
         .text(s"Allowed values: ${AIType.values.mkString(",")}")
+
+      opt[Boolean]('f', "userFirstRound").
+        optional().
+        action((f, p) => p.copy(userFirstRound = Some(f)))
+        .text(s"True: Player goes first. False: AI goes first. Empty: Random")
 
     }
 
