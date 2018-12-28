@@ -22,17 +22,17 @@ object SimpleAI extends AIService {
   private def getAvailableCombinations(board: Board, aiMarks: Int): List[(Int, Int)] = {
     val rowsCombinations = for(
       row <- List.range(0, 3)
-      if board.getRow(row).count(_ == Some(Player.ai)) == aiMarks && board.getRow(row).count(_ == None) == 3 - aiMarks
+      if board.getRow(row).count(_.contains(Player.ai)) == aiMarks && board.getRow(row).count(_.isEmpty) == 3 - aiMarks
     ) yield for(column <- List.range(0, 3) if board(row)(column).isEmpty) yield(row, column)
 
     val columnsCombinations = for(
       column <- List.range(0, 3)
-      if board.getColumn(column).count(_ == Some(Player.ai)) == aiMarks && board.getColumn(column).count(_ == None) == 3 - aiMarks
+      if board.getColumn(column).count(_.contains(Player.ai)) == aiMarks && board.getColumn(column).count(_.isEmpty) == 3 - aiMarks
     ) yield for(row <- List.range(0, 3) if board(row)(column).isEmpty) yield(row, column)
 
     val diagonalsCombinations = for(
       isMainDiagonal <- List(true, false)
-      if board.getDiagonal(isMainDiagonal).count(_ == Some(Player.ai)) == aiMarks && board.getDiagonal(isMainDiagonal).count(_ == None) == 3 - aiMarks
+      if board.getDiagonal(isMainDiagonal).count(_.contains(Player.ai)) == aiMarks && board.getDiagonal(isMainDiagonal).count(_.isEmpty) == 3 - aiMarks
     ) yield for(row <- List.range(0, 3) if (isMainDiagonal && board(row)(row).isEmpty) || (!isMainDiagonal && board(row)(2 - row).isEmpty)) yield(row, if(isMainDiagonal) row else 2 - row)
 
     (rowsCombinations ::: columnsCombinations ::: diagonalsCombinations).flatten
