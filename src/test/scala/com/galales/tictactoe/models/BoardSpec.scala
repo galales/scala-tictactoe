@@ -90,7 +90,7 @@ class BoardSpec extends UnitSpec {
 
     for(
       row <- 0 until 3;
-      column <- 0 until 3 if row != 2 && column != 2
+      column <- 0 until 3 if row != 2 || column != 2
     ) yield board.execMove(Move(row, column), Player.user)
 
     board.isComplete should be (false)
