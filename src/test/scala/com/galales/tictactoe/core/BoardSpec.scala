@@ -1,6 +1,7 @@
-package com.galales.tictactoe.models
+package com.galales.tictactoe.core
 
 import com.galales.tictactoe.UnitSpec
+import com.galales.tictactoe.enums.Player
 
 class BoardSpec extends UnitSpec {
 

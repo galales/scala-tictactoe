@@ -1,7 +1,7 @@
 package com.galales.tictactoe.services.ui
 
-import com.galales.tictactoe.enums.GameResult
-import com.galales.tictactoe.models.{Board, Player}
+import com.galales.tictactoe.core.Board
+import com.galales.tictactoe.enums.{GameResult, Player}
 
 object ConsoleUI extends UserInterfaceService {
   val ANSI_RED = "\u001B[31m"

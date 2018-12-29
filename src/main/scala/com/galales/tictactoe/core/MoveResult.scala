@@ -1,4 +1,4 @@
-package com.galales.tictactoe.models
+package com.galales.tictactoe.core
 
 sealed trait MoveResult
 

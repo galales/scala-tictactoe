@@ -1,7 +1,8 @@
 package com.galales.tictactoe.services.ai
 
 import com.galales.tictactoe.UnitSpec
-import com.galales.tictactoe.models.{Board, Move, Player}
+import com.galales.tictactoe.core.{Board, Move}
+import com.galales.tictactoe.enums.Player
 
 class ChallengeAISpec extends UnitSpec {
 

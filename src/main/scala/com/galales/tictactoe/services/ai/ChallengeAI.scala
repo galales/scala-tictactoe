@@ -1,6 +1,7 @@
 package com.galales.tictactoe.services.ai
 
-import com.galales.tictactoe.models.{Board, Move, Player}
+import com.galales.tictactoe.core.{Board, Move}
+import com.galales.tictactoe.enums.Player
 
 object ChallengeAI extends AIService {
 

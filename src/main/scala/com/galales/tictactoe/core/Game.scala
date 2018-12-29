@@ -1,9 +1,8 @@
-package com.galales.tictactoe
+package com.galales.tictactoe.core
 
-import com.galales.tictactoe.models.{Board, Player}
-import com.galales.tictactoe.enums.GameResult
-import com.galales.tictactoe.services.interaction.InteractionService
+import com.galales.tictactoe.enums.{GameResult, Player}
 import com.galales.tictactoe.services.ai.AIService
+import com.galales.tictactoe.services.interaction.InteractionService
 import com.galales.tictactoe.services.ui.UserInterfaceService
 
 object Game {

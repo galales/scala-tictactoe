@@ -1,7 +1,7 @@
 package com.galales.tictactoe.services.ui
 
+import com.galales.tictactoe.core.Board
 import com.galales.tictactoe.enums.GameResult
-import com.galales.tictactoe.models.Board
 
 trait UserInterfaceService {
 

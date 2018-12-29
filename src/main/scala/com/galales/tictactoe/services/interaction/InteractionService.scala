@@ -1,6 +1,6 @@
 package com.galales.tictactoe.services.interaction
 
-import com.galales.tictactoe.models.Move
+import com.galales.tictactoe.core.Move
 import com.galales.tictactoe.services.ui.UserInterfaceService
 
 trait InteractionService {

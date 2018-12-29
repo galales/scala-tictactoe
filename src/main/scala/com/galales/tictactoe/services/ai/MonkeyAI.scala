@@ -1,6 +1,6 @@
 package com.galales.tictactoe.services.ai
 
-import com.galales.tictactoe.models.{Board, Move}
+import com.galales.tictactoe.core.{Board, Move}
 
 object MonkeyAI extends AIService {
 

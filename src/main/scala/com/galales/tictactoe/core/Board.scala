@@ -1,4 +1,6 @@
-package com.galales.tictactoe.models
+package com.galales.tictactoe.core
+
+import com.galales.tictactoe.enums.Player
 
 import scala.collection.mutable.ArrayBuffer
 

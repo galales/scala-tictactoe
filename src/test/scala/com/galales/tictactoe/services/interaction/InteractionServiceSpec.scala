@@ -1,7 +1,7 @@
 package com.galales.tictactoe.services.interaction
 
 import com.galales.tictactoe.UnitSpec
-import com.galales.tictactoe.models.Move
+import com.galales.tictactoe.core.Move
 import com.galales.tictactoe.services.ui.UserInterfaceService
 import org.scalamock.scalatest.MockFactory
 
