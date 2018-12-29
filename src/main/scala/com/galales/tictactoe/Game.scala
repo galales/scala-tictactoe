@@ -8,7 +8,7 @@ import com.galales.tictactoe.services.ui.UserInterfaceService
 
 object Game {
 
-  def getGameResult(board: Board) : GameResult.Value = {
+  private def getGameResult(board: Board) : GameResult.Value = {
 
     val singleValueInCombinations = List(
       (0 until board.size).map(board.getRow).filter(_.distinct.length == 1),
@@ -16,11 +16,11 @@ object Game {
       List(true, false).map(board.getDiagonal).filter(_.distinct.length == 1),
     ).flatten.flatMap(_.head)
 
-    val winner = singleValueInCombinations.headOption.getOrElse(None)
+    val winner = singleValueInCombinations.headOption
 
     winner match {
-      case Player.user => GameResult.userWin
-      case Player.ai => GameResult.aiWin
+      case Some(Player.user) => GameResult.userWin
+      case Some(Player.ai) => GameResult.aiWin
       case _ => if(board.isComplete) GameResult.draw else GameResult.stillGoing
     }
   }

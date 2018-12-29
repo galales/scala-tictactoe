@@ -8,6 +8,7 @@ scalaVersion := "2.12.8"
 
 
 libraryDependencies ++= Seq(
-  "com.github.scopt"      %% "scopt"      % scoptVersion      % "compile",
-  "org.scalatest"         %% "scalatest"  % scalatestVersion  % "test"
+  "com.github.scopt"      %% "scopt"      % scoptVersion      % Compile,
+  "org.scalatest"         %% "scalatest"  % scalaTestVersion  % Test,
+  "org.scalamock"         %% "scalamock"  % scalaMockVersion  % Test
 )
