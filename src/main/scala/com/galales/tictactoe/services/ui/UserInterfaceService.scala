@@ -5,10 +5,10 @@ import com.galales.tictactoe.models.Board
 
 trait UserInterfaceService {
 
-  def updateBoard(board: Board)
+  def updateBoard(board: Board) : Unit
 
-  def showResult(result: GameResult.Value)
+  def showResult(result: GameResult.Value) : Unit
 
-  def outputMessage(message: String)
-  def outputErrorMessage(message: String)
+  def outputMessage(message: String) : Unit
+  def outputErrorMessage(message: String) : Unit
 }
