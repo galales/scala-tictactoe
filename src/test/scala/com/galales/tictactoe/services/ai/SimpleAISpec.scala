@@ -23,10 +23,7 @@ class SimpleAISpec extends UnitSpec {
     board.execMove(Move(1, 0), Player.ai)
     board.execMove(Move(1, 1), Player.ai)
 
-    val move = SimpleAI.makeMove(board)
-
-    move.row should be (1)
-    move.column should be (2)
+    SimpleAI.makeMove(board) should be (Move(1,2))
   }
 
   it should "be satisfied" in {
@@ -36,10 +33,7 @@ class SimpleAISpec extends UnitSpec {
     board.execMove(Move(0, 1), Player.ai)
     board.execMove(Move(1, 1), Player.ai)
 
-    val move = SimpleAI.makeMove(board)
-
-    move.row should be (2)
-    move.column should be (1)
+    SimpleAI.makeMove(board) should be (Move(2,1))
   }
 
   it should "be something you love and understand" in {
@@ -54,14 +48,8 @@ class SimpleAISpec extends UnitSpec {
     boardSecondary.execMove(Move(0, 2), Player.ai)
     boardSecondary.execMove(Move(1, 1), Player.ai)
 
-    val moveMain = SimpleAI.makeMove(boardMain)
-    val moveSecondary = SimpleAI.makeMove(boardSecondary)
-
-    moveMain.row should be (2)
-    moveMain.column should be (2)
-
-    moveSecondary.row should be (2)
-    moveSecondary.column should be (0)
+    SimpleAI.makeMove(boardMain) should be (Move(2,2))
+    SimpleAI.makeMove(boardSecondary) should be (Move(2,0))
   }
 
   it should "not worry, he'll find himself" in {

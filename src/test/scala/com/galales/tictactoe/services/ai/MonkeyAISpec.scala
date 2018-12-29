@@ -24,10 +24,7 @@ class MonkeyAISpec extends UnitSpec {
       column <- 0 until 3 if row != 2 || column != 2
     ) yield board.execMove(Move(row, column), Player.user)
 
-    val move = MonkeyAI.makeMove(board)
-
-    move.row should be (2)
-    move.column should be (2)
+    MonkeyAI.makeMove(board) should be (Move(2,2))
   }
 
 }

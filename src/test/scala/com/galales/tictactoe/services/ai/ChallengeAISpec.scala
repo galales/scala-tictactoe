@@ -23,10 +23,7 @@ class ChallengeAISpec extends UnitSpec {
     board.execMove(Move(1, 0), Player.ai)
     board.execMove(Move(1, 1), Player.ai)
 
-    val move = ChallengeAI.makeMove(board)
-
-    move.row should be (1)
-    move.column should be (2)
+    ChallengeAI.makeMove(board) should be (Move(1,2))
   }
 
   it should "with all" in {
@@ -36,10 +33,7 @@ class ChallengeAISpec extends UnitSpec {
     board.execMove(Move(0, 1), Player.ai)
     board.execMove(Move(1, 1), Player.ai)
 
-    val move = ChallengeAI.makeMove(board)
-
-    move.row should be (2)
-    move.column should be (1)
+    ChallengeAI.makeMove(board) should be (Move(2,1))
   }
 
   it should "it's might" in {
@@ -54,14 +48,8 @@ class ChallengeAISpec extends UnitSpec {
     boardSecondary.execMove(Move(0, 2), Player.ai)
     boardSecondary.execMove(Move(1, 1), Player.ai)
 
-    val moveMain = ChallengeAI.makeMove(boardMain)
-    val moveSecondary = ChallengeAI.makeMove(boardSecondary)
-
-    moveMain.row should be (2)
-    moveMain.column should be (2)
-
-    moveSecondary.row should be (2)
-    moveSecondary.column should be (0)
+    ChallengeAI.makeMove(boardMain) should be (Move(2,2))
+    ChallengeAI.makeMove(boardSecondary) should be (Move(2,0))
   }
 
   it should "block the opponent" in {
@@ -74,10 +62,7 @@ class ChallengeAISpec extends UnitSpec {
     // AI has nothing in his hands
     board.execMove(Move(2, 2), Player.ai)
 
-    val move = ChallengeAI.makeMove(board)
-
-    move.row should be (2)
-    move.column should be (1)
+    ChallengeAI.makeMove(board) should be (Move(2,1))
   }
 
   it should "unless the victory is in its pocket" in {
@@ -91,10 +76,7 @@ class ChallengeAISpec extends UnitSpec {
     board.execMove(Move(0, 2), Player.ai)
     board.execMove(Move(1, 2), Player.ai)
 
-    val move = ChallengeAI.makeMove(board)
-
-    move.row should be (2)
-    move.column should be (2)
+    ChallengeAI.makeMove(board) should be (Move(2,2))
   }
 
 }
