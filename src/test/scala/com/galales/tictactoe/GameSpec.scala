@@ -10,18 +10,18 @@ import org.scalamock.scalatest.MockFactory
 import language.postfixOps
 
 class GameSpec extends UnitSpec with MockFactory {
-  implicit val aiServiceMock: AIService = stub[AIService]
-  implicit val userInterfaceMock: UserInterfaceService = stub[UserInterfaceService]
-  implicit val interactionMock: InteractionService = stub[InteractionService]
+  implicit val aiServiceStub: AIService = stub[AIService]
+  implicit val userInterfaceStub: UserInterfaceService = stub[UserInterfaceService]
+  implicit val interactionStub: InteractionService = stub[InteractionService]
 
   "The Game (you lost The Game)" should "allow the user to play in his/her/it turn" in {
     val board = generateBoardWithLastTileEmpty()
 
-    aiServiceMock.makeMove _ when * never
+    aiServiceStub.makeMove _ when * never
 
-    userInterfaceMock.updateBoard _ when * twice()
+    userInterfaceStub.updateBoard _ when * twice()
 
-    (interactionMock.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(2,2) once
+    (interactionStub.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(2,2) once
 
     Game.play(board, isUserTurn = true)
 
@@ -30,11 +30,11 @@ class GameSpec extends UnitSpec with MockFactory {
   it should "allow Skynet to take over in AI turn" in {
     val board = generateBoardWithLastTileEmpty()
 
-    aiServiceMock.makeMove _ when board returns Move(2,2) once
+    aiServiceStub.makeMove _ when board returns Move(2,2) once
 
-    userInterfaceMock.updateBoard _ when * once
+    userInterfaceStub.updateBoard _ when * once
 
-    (interactionMock.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) never
+    (interactionStub.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) never
 
     Game.play(board, isUserTurn = false)
   }
@@ -43,23 +43,23 @@ class GameSpec extends UnitSpec with MockFactory {
     val board = Board()
 
     inSequence {
-      (interactionMock.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(0,0) once
+      (interactionStub.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(0,0) once
 
-      aiServiceMock.makeMove _ when board returns Move(2,0) once
+      aiServiceStub.makeMove _ when board returns Move(2,0) once
 
-      (interactionMock.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(1,0) once
+      (interactionStub.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(1,0) once
 
-      aiServiceMock.makeMove _ when board returns Move(0,1) once
+      aiServiceStub.makeMove _ when board returns Move(0,1) once
 
-      (interactionMock.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(0,2) once
+      (interactionStub.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(0,2) once
 
-      aiServiceMock.makeMove _ when board returns Move(1,1) once
+      aiServiceStub.makeMove _ when board returns Move(1,1) once
 
-      (interactionMock.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(1,2) once
+      (interactionStub.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(1,2) once
 
-      aiServiceMock.makeMove _ when board returns Move(2,2) once
+      aiServiceStub.makeMove _ when board returns Move(2,2) once
 
-      (interactionMock.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(2,1) once
+      (interactionStub.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(2,1) once
 
     }
 
@@ -70,7 +70,7 @@ class GameSpec extends UnitSpec with MockFactory {
   "The match" should "end in a User Win" in {
     val board = generateBoardWithLastTileEmpty(Player.user)
 
-    (interactionMock.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(2,2) once
+    (interactionStub.makeMove(_ : Int)(_ : UserInterfaceService)) when(*,*) returning Move(2,2) once
 
     Game.play(board, isUserTurn = true) should be (GameResult.userWin)
 
@@ -79,7 +79,7 @@ class GameSpec extends UnitSpec with MockFactory {
   it should "end in a AI Win" in {
     val board = generateBoardWithLastTileEmpty(Player.ai)
 
-    aiServiceMock.makeMove _ when board returns Move(2,2) once
+    aiServiceStub.makeMove _ when board returns Move(2,2) once
 
     Game.play(board, isUserTurn = false) should be (GameResult.aiWin)
   }
@@ -87,7 +87,7 @@ class GameSpec extends UnitSpec with MockFactory {
   it should "end in a Draw" in {
     val board = generateBoardWithLastTileEmpty(Player.user)
 
-    aiServiceMock.makeMove _ when board returns Move(2,2) once
+    aiServiceStub.makeMove _ when board returns Move(2,2) once
 
     Game.play(board, isUserTurn = false) should be (GameResult.draw)
   }
@@ -98,12 +98,12 @@ class GameSpec extends UnitSpec with MockFactory {
     inSequence {
 
       // Non empty tile
-      (interactionMock.makeMove(_: Int)(_: UserInterfaceService)) when(*, *) returning Move(0, 0) once
+      (interactionStub.makeMove(_: Int)(_: UserInterfaceService)) when(*, *) returning Move(0, 0) once
 
-      userInterfaceMock.outputErrorMessage _ when * once
+      userInterfaceStub.outputErrorMessage _ when * once
 
       // Empty tile
-      (interactionMock.makeMove(_: Int)(_: UserInterfaceService)) when(*, *) returning Move(2, 2) once
+      (interactionStub.makeMove(_: Int)(_: UserInterfaceService)) when(*, *) returning Move(2, 2) once
 
     }
 
